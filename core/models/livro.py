@@ -1,5 +1,10 @@
 from django.db import models
+from .categoria import Categoria
+from .editora import Editora
 
+editora = models.ForeignKey(Editora, on_delete=models.PROTECT, related_name="livros", null=True, blank=True)
+editora = models.ForeignKey(Editora, on_delete=models.PROTECT, related_name="livros", null=True, blank=True)
+editora = models.ForeignKey(Editora, on_delete=models.PROTECT, related_name="livros", null=True, blank=True)
 class Livro(models.Model):
     titulo = models.CharField(max_length=255)
     isbn = models.CharField(max_length=32, null=True, blank=True)

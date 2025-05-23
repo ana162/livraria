@@ -11,8 +11,8 @@ from core.views import CategoriaViewSet, EditoraViewSet, UserViewSet
 
 router = DefaultRouter()
 router.register(r"categorias", CategoriaViewSet) # nova linha
-router.register(r"users", UserViewSet, basename="users")
 router.register(r"editoras", EditoraViewSet)
+router.register(r"users", UserViewSet, basename="users")
 
 urlpatterns = [
     path('admin/', admin.site.urls),

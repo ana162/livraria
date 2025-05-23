@@ -58,6 +58,6 @@ typing-extensions==4.12.2
 tzdata==2024.2; sys_platform == "win32"
 uritemplate==4.1.1
 urllib3==2.0.7
-uvicorn==0.34.0
+uvicorn==0.34.2
 virtualenv==20.27.1
 whitenoise[brotli]==6.9.0

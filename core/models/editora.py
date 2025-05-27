@@ -7,3 +7,5 @@ class Editora(models.Model):
 
     def __str__(self):
         return self.nome
+from .editora import Editora
+editora = models.ForeignKey(Editora, on_delete=models.PROTECT, related_name="livros", null=True, blank=True)

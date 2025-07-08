@@ -8,6 +8,12 @@ from django.utils.translation import gettext_lazy as _
 
 from core import models
 from core.models import Compra
+
+@admin.register(Compra)
+class CompraAdmin(admin.ModelAdmin):
+    list_display = ('usuario', 'status')
+    ordering = ('usuario', 'status')
+    list_per_page = 10
 admin.site.register(Compra)
 
 class UserAdmin(BaseUserAdmin):

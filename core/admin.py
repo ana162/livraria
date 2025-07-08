@@ -7,16 +7,20 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from core import models
-
+from core.models import Compra
+admin.site.register(Compra)
 
 class UserAdmin(BaseUserAdmin):
     """Define the admin pages for users."""
-
+      
     ordering = ['id']
     list_display = ['email', 'name']
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal Info'), {'fields': ('name', 'passage_id')}),
+          (_('Personal Info'), {'fields': ('name', 'passage_id', 'foto')}),#inclua a foto aqui
+
+
         (
             _('Permissions'),
             {

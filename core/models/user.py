@@ -54,8 +54,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         help_text=_('Indica que este usuário pode acessar o Admin.'),
     )
 
-
-class User(AbstractBaseUser, PermissionsMixin):
     foto = models.ForeignKey(
         Image,
         related_name='user_foto',
@@ -64,6 +62,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         default=None,
     )
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'

@@ -8,11 +8,12 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 from rest_framework.routers import DefaultRouter
-from uploader.router import router as uploader_router
+
 from core.views import CategoriaViewSet, EditoraViewSet, UserViewSet
+from uploader.router import router as uploader_router
 
 router = DefaultRouter()
-router.register(r"categorias", CategoriaViewSet) # nova linha
+router.register(r"categorias", CategoriaViewSet)  # nova linha
 router.register(r"editoras", EditoraViewSet)
 router.register(r"users", UserViewSet, basename="users")
 

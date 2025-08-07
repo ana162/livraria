@@ -2,7 +2,9 @@ from django.db import models
 
 from .livro import Livro
 from .user import User
-
+from rest_framework.serializers import CharField, ModelSerializer
+class CompraSerializer(ModelSerializer):
+    usuario = CharField(source='usuario.email', read_only=True) # inclua essa linha
 
 class ItensCompra(models.Model):
     compra = models.ForeignKey('Compra', on_delete=models.CASCADE, related_name='itens')

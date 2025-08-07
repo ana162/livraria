@@ -11,7 +11,9 @@ class ItensCompra(models.Model):
     livro = models.ForeignKey(Livro, on_delete=models.PROTECT, related_name='+')
     quantidade = models.IntegerField(default=1)
 
-
+class CompraSerializer(ModelSerializer):
+    status = CharField(source='get_status_display', read_only=True) # inclua essa linha
+    
 class Compra(models.Model):
     class StatusCompra(models.IntegerChoices):
         CARRINHO = 1, "Carrinho"

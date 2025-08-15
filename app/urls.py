@@ -9,14 +9,19 @@ from drf_spectacular.views import (
 )
 from rest_framework.routers import DefaultRouter
 
-from core.views import CategoriaViewSet, EditoraViewSet, UserViewSet
+from core.views import (
+    CategoriaViewSet,
+    CompraViewSet,  # inclua essa linha
+    EditoraViewSet,
+    UserViewSet,
+)
 from uploader.router import router as uploader_router
 
 router = DefaultRouter()
 router.register(r"categorias", CategoriaViewSet)  # nova linha
 router.register(r"editoras", EditoraViewSet)
 router.register(r"users", UserViewSet, basename="users")
-
+router.register(r'compras', CompraViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     # OpenAPI 3

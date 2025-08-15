@@ -1,19 +1,24 @@
 from django.db import models
+from rest_framework.serializers import CharField, ModelSerializer
 
 from .livro import Livro
 from .user import User
-from rest_framework.serializers import CharField, ModelSerializer
+
+
 class CompraSerializer(ModelSerializer):
-    usuario = CharField(source='usuario.email', read_only=True) # inclua essa linha
+    usuario = CharField(source='usuario.email', read_only=True)  # inclua essa linha
+
 
 class ItensCompra(models.Model):
     compra = models.ForeignKey('Compra', on_delete=models.CASCADE, related_name='itens')
     livro = models.ForeignKey(Livro, on_delete=models.PROTECT, related_name='+')
     quantidade = models.IntegerField(default=1)
 
+
 class CompraSerializer(ModelSerializer):
-    status = CharField(source='get_status_display', read_only=True) # inclua essa linha
-    
+    status = CharField(source='get_status_display', read_only=True)  # inclua essa linha
+
+
 class Compra(models.Model):
     class StatusCompra(models.IntegerChoices):
         CARRINHO = 1, "Carrinho"

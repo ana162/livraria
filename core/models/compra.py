@@ -15,7 +15,7 @@ class ItensCompra(models.Model):
     quantidade = models.IntegerField(default=1)
 
 
-class CompraSerializer(ModelSerializer):
+class CompraSerializer(ModelSerializer):  # noqa: F811
     status = CharField(source='get_status_display', read_only=True)  # inclua essa linha
 
 

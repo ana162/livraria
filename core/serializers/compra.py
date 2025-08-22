@@ -10,5 +10,6 @@ class ItensCompraSerializer:
 class CompraSerializer(ModelSerializer):  
     class Meta:
         model = Compra
-        fields = '__all__'
+        fields= ('livro', 'quantidade')
+        depth = 1
         itens = ItensCompraSerializer(many=True, read_only=True)  # noqa: F821

@@ -12,4 +12,4 @@ class CompraSerializer(ModelSerializer):
         model = Compra
         fields= ('livro', 'quantidade')
         depth = 1
-        itens = ItensCompraSerializer(many=True, read_only=True)  # noqa: F821
+        itens = ItensCompraSerializer(many=True, read_only=True) 

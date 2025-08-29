@@ -103,18 +103,3 @@ class LivroAdmin(admin.ModelAdmin):
     list_filter = ('editora', 'categoria')
     ordering = ('titulo', 'editora', 'categoria')
     list_per_page = 25
-
-
-{
-    "usuario": 1,
-    "itens": [
-        {
-            "livro": 1,
-            "quantidade": 1
-        },
-        {
-            "livro": 2,
-            "quantidade": 2
-        }
-    ]
-}

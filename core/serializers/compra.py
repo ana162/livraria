@@ -16,13 +16,13 @@ class CompraCreateUpdateSerializer(ModelSerializer):
         model = Compra
         fields = ('usuario', 'itens')
 
-        def create(self, validated_data):
-            itens_data = validated_data.pop('itens')
-            compra = Compra.objects.create(**validated_data)
+    def update(self, compra, validated_data):
+        itens_data = validated_data.pop('itens', [])
+        if itens_data:
+            compra.itens.all().delete()
             for item_data in itens_data:
                 ItensCompra.objects.create(compra=compra, **item_data)
-            compra.save()
-            return compra
+        return super().update(compra, validated_data)
 
 
 class ItensCompraSerializer(ModelSerializer):

@@ -1,6 +1,14 @@
-from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField
+from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField  # noqa: I001
 
 from core.models import Compra, ItensCompra
+
+from rest_framework.serializers import (
+    CharField,  # noqa: F811
+    CurrentUserDefault,  # novo  # noqa: F401
+    HiddenField,         # novo  # noqa: F401
+    ModelSerializer,  # noqa: F811
+    SerializerMethodField,  # noqa: F811
+)
 
 
 class ItensCompraCreateUpdateSerializer(ModelSerializer):
@@ -10,11 +18,11 @@ class ItensCompraCreateUpdateSerializer(ModelSerializer):
 
 
 class CompraCreateUpdateSerializer(ModelSerializer):
-    itens = ItensCompraCreateUpdateSerializer(many=True)
+    usuario = HiddenField(default=CurrentUserDefault())
 
     class Meta:
         model = Compra
-        fields = ('usuario', 'itens')
+        fields = ('id', 'usuario', 'itens')
 
     def update(self, compra, validated_data):
         itens_data = validated_data.pop('itens', [])

@@ -10,3 +10,11 @@ from .compra import (
     ItensCompraCreateUpdateSerializer,
     ItensCompraSerializer,
 )
+from .compra import (
+    CompraCreateUpdateSerializer,
+    CompraListSerializer, # novo
+    CompraSerializer,
+    ItensCompraCreateUpdateSerializer,
+    ItensCompraListSerializer, # novo
+    ItensCompraSerializer,
+)

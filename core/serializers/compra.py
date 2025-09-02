@@ -8,6 +8,7 @@ from rest_framework.serializers import (
     HiddenField,         # novo  # noqa: F401
     ModelSerializer,  # noqa: F811
     SerializerMethodField,  # noqa: F811
+    ValidationError, # novo  # noqa: E261, F401
 )
 
 
@@ -15,6 +16,16 @@ class ItensCompraCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = ItensCompra
         fields = ('livro', 'quantidade')
+
+    def validate_quantidade(self, quantidade):
+        if quantidade <= 0:
+            raise ValidationError('A quantidade deve ser maior do que zero.')
+        return quantidade
+
+    def validate(self, item):
+        if item['quantidade'] > item['livro'].quantidade:
+            raise ValidationError('Quantidade de itens maior do que a quantidade em estoque.')
+        return item
 
 
 class CompraCreateUpdateSerializer(ModelSerializer):

@@ -5,6 +5,7 @@ from core.models import Compra, ItensCompra
 from rest_framework.serializers import (
     CharField,  # noqa: F811
     CurrentUserDefault,  # novo  # noqa: F401
+    DateTimeField, # novo  # noqa: E261, F401
     HiddenField,         # novo  # noqa: F401
     ModelSerializer,  # noqa: F811
     SerializerMethodField,  # noqa: F811
@@ -62,8 +63,11 @@ class ItensCompraSerializer(ModelSerializer):  # noqa: E302
 class CompraSerializer(ModelSerializer):
     class Meta:
         model = ItensCompra
-        fields = ('livro', 'quantidade', 'preco', 'total')  # mudou
+        fields = ('id', 'usuario', 'status', 'total', 'data', 'itens') # modificado  # noqa: E261
         depth = 1
+        usuario = CharField(source='usuario.email', read_only=True)
+        status = CharField(source='get_status_display', read_only=True)
+        data = DateTimeField(read_only=True) # novo campo  # noqa: E261
         itens = ItensCompraSerializer(many=True, read_only=True)
         fields = ('id', 'usuario', 'status', 'total', 'itens')
 

@@ -15,7 +15,7 @@ from rest_framework.serializers import (
 class ItensCompraCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = ItensCompra
-        fields = ('livro', 'quantidade')
+        fields = ('livro', 'quantidade', 'preco')  # mudou
 
     def validate_quantidade(self, quantidade):
         if quantidade <= 0:
@@ -35,26 +35,34 @@ class CompraCreateUpdateSerializer(ModelSerializer):
         model = Compra
         fields = ('id', 'usuario', 'itens')
 
-    def update(self, compra, validated_data):
-        itens_data = validated_data.pop('itens', [])
-        if itens_data:
+    def update(self, compra, validated_data):  # noqa: E305
+        itens = validated_data.pop('itens')  # noqa: E117
+        if itens:
             compra.itens.all().delete()
-            for item_data in itens_data:
+            for item_data in itens:  # noqa: E117
                 ItensCompra.objects.create(compra=compra, **item_data)
         return super().update(compra, validated_data)
 
+    def create(self, validated_data):  # noqa: E302
+        itens = validated_data.pop('itens')  # noqa: E117
+        compra = Compra.objects.create(**validated_data)
+        for item in itens:
+            item['preco'] = item['livro'].preco # preço do livro no momento da compra  # noqa: E261
+            ItensCompra.objects.create(compra=compra, **item)
+        compra.save()
+        return compra
 
-class ItensCompraSerializer(ModelSerializer):
+class ItensCompraSerializer(ModelSerializer):  # noqa: E302
     total = SerializerMethodField()
 
     def get_total(self, instance):
-        return instance.livro.preco * instance.quantidade
+        return instance.quantidade * instance.preco
 
 
 class CompraSerializer(ModelSerializer):
     class Meta:
         model = ItensCompra
-        fields = ('livro', 'quantidade', 'total')
+        fields = ('livro', 'quantidade', 'preco', 'total')  # mudou
         depth = 1
         itens = ItensCompraSerializer(many=True, read_only=True)
         fields = ('id', 'usuario', 'status', 'total', 'itens')
@@ -84,7 +92,7 @@ class ItensCompraListSerializer(ModelSerializer):
 
     class Meta:
         model = ItensCompra
-        fields = ('quantidade', 'livro')
+        fields = ('quantidade', 'preco', 'livro')  # mudou
         depth = 1
 
     @property

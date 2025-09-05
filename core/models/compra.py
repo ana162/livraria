@@ -25,7 +25,19 @@ class Compra(models.Model):
         FINALIZADO = 2, "Realizado"
         PAGO = 3, "Pago"
         ENTREGUE = 4, "Entregue"
+        tipo_pagamento = models.IntegerField(choices=TipoPagamento.choices, default=tipo_pagamento.CARTAO_CREDITO)  # type: ignore # noqa: F821
 
-    usuario = models.ForeignKey(User, on_delete=models.PROTECT, related_name="compras")
-    status = models.IntegerField(choices=StatusCompra.choices, default=StatusCompra.CARRINHO)
+
+    class TipoPagamento(models.IntegerChoices):  # noqa: E302, E303
+        CARTAO_CREDITO = 1, 'Cartão de Crédito'  # noqa: E117
+        CARTAO_DEBITO = 2, 'Cartão de Débito'
+        PIX = 3, 'PIX'
+        BOLETO = 4, 'Boleto'
+        TRANSFERENCIA_BANCARIA = 5, 'Transferência Bancária'
+        DINHEIRO = 6, 'Dinheiro'
+        OUTRO = 7, 'Outro'
+
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT, related_name="compras")  # noqa: E305
+    status = models.IntegerField(choices=StatusCompra.choices, default=StatusCompra.CARRINHO)  # noqa: F821
     data = models.DateTimeField(auto_now_add=True)  # campo novo  # noqa: W292
+  # noqa: E114, W391

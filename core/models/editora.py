@@ -11,6 +11,6 @@ class Editora(models.Model):
         return self.nome
 
 
-from .editora import Editora
+from .editora import Editora  # noqa: E402, F811
 
 editora = models.ForeignKey(Editora, on_delete=models.PROTECT, related_name="livros", null=True, blank=True)

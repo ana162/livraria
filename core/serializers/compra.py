@@ -33,8 +33,8 @@ class CompraCreateUpdateSerializer(ModelSerializer):
     usuario = HiddenField(default=CurrentUserDefault())
 
     class Meta:
-        model = Compra
-        fields = ('id', 'usuario', 'itens')
+        model = ItensCompra  # noqa: E111
+        fields = ('livro', 'quantidade', 'preco')  # mudou  # noqa: E305
 
     def update(self, compra, validated_data):  # noqa: E305
         itens = validated_data.pop('itens')  # noqa: E117
@@ -67,7 +67,7 @@ class CompraSerializer(ModelSerializer):
         tipo_pagamento = CharField(source='get_tipo_pagamento_display', read_only=True) # novo campo  # noqa: E261
         itens = ItensCompraSerializer(many=True, read_only=True)
 
-class Meta:  # noqa: E302, E305
+class Meta:  # noqa: E302
         model = ItensCompra  # noqa: E117
         fields = ('id', 'usuario', 'status', 'total', 'data', 'tipo_pagamento', 'itens') # modificado  # noqa: E261
 
@@ -79,10 +79,10 @@ class ItensCompraListSerializer(ModelSerializer):  # noqa: E302
 
     class Meta:
         model = ItensCompra
-        fields = ('livro', 'quantidade', 'total')
-
-
-class CompraListSerializer(ModelSerializer):
+        fields = ('quantidade', 'preco', 'livro')  # mudou
+        depth = 1
+  # noqa: E114, W293
+class CompraListSerializer(ModelSerializer):  # noqa: E302
     usuario = CharField(source='usuario.email', read_only=True)  # noqa: F821
     itens = ItensCompraListSerializer(many=True, read_only=True)
     class Meta:

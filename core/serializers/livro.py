@@ -1,11 +1,24 @@
-from rest_framework.serializers import ModelSerializer, SlugRelatedField
-
-from core.models import Livro
+from core.models import Livro  # noqa: I001
+from rest_framework.serializers import (
+    DecimalField,
+    ModelSerializer,
+    Serializer,
+    SlugRelatedField,
+    ValidationError,
+)
 from uploader.models import Image
 from uploader.serializers import ImageSerializer
 
+class LivroAlterarPrecoSerializer(Serializer):  # noqa: E302
+    preco = DecimalField(max_digits=7, decimal_places=2)
 
-class LivroSerializer(ModelSerializer):
+    def validate_preco(self, value):
+        '''Valida se o preço é um valor positivo.'''
+        if value <= 0:
+            raise ValidationError('O preço deve ser um valor positivo.')
+        return value
+
+class LivroSerializer(ModelSerializer):  # noqa: E302
     capa_attachment_key = SlugRelatedField(
         source='capa',
         queryset=Image.objects.all(),
@@ -22,7 +35,21 @@ class LivroSerializer(ModelSerializer):
 
 
 class LivroListRetrieveSerializer(ModelSerializer):
+    capa = ImageSerializer(required=False)
     class Meta:
         model = Livro
         fields = "__all__"
+        depth = 1
+
+class LivroListSerializer(ModelSerializer):  # noqa: E302
+    class Meta:
+        model = Livro
+        fields = ("id", "titulo", "preco")
+
+class LivroRetrieveSerializer(ModelSerializer):  # noqa: E302
+    capa = ImageSerializer(required=False)
+
+    class Meta:
+        model = Livro
+        fields = '__all__'
         depth = 1

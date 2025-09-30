@@ -13,9 +13,9 @@ class ItensCompraInline(admin.TabularInline):
 @admin.register(Compra)
 class CompraAdmin(admin.ModelAdmin):
     list_display = ('usuario', 'status', 'total_formatado')  # mostra na listagem
-    search_fields = ('usuario__email', 'status')  # campos pesquisáveis
-    list_filter = ('status', 'data')  # filtros laterais
-    ordering = ('usuario', 'status''data')
+    search_fields = ('usuario', 'status')
+    list_filter = ('usuario', 'status')
+    ordering = ('usuario', 'status')
     model = ItensCompra
     extra = 1  # Quantidade de itens adicionais
     list_per_page = 10

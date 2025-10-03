@@ -1,8 +1,9 @@
-from rest_framework.viewsets import ModelViewSet  # noqa: I001
-from rest_framework import status  # noqa: F401
+from drf_spectacular.utils import extend_schema
+from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.response import Response  # noqa: F401
-from rest_framework.viewsets import ModelViewSet  # noqa: F811
+from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
+
 from core.models import Livro
 from core.serializers import (
     LivroAlterarPrecoSerializer,
@@ -12,10 +13,21 @@ from core.serializers import (
 )
 
 
-class LivroViewSet(ModelViewSet):  # noqa: E303
+class LivroViewSet(ModelViewSet):
     queryset = Livro.objects.all()
-    serializer_class = LivroSerializer
 
+    def get_serializer_class(self):
+        if self.action == "list":
+            return LivroListSerializer
+        elif self.action == "retrieve":
+            return LivroRetrieveSerializer
+        return LivroSerializer
+
+    @extend_schema(
+        request=LivroAlterarPrecoSerializer,
+        responses={200: None},
+        description="Altera o preço do livro especificado."
+    )
     @action(detail=True, methods=['patch'])
     def alterar_preco(self, request, pk=None):
         livro = self.get_object()
@@ -29,10 +41,3 @@ class LivroViewSet(ModelViewSet):  # noqa: E303
         return Response(
             {'detail': f'Preço do livro "{livro.titulo}" atualizado para {livro.preco}.'}, status=status.HTTP_200_OK
         )
-
-    def get_serializer_class(self):
-        if self.action == "list":
-            return LivroListSerializer  # type: ignore # noqa: F821
-        elif self.action == "retrieve":
-            return LivroRetrieveSerializer # type: ignore  # noqa: E261, F821
-        return LivroSerializer

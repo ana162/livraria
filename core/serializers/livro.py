@@ -1,4 +1,3 @@
-from core.models import Livro  # noqa: I001
 from rest_framework.serializers import (
     DecimalField,
     ModelSerializer,
@@ -6,8 +5,11 @@ from rest_framework.serializers import (
     SlugRelatedField,
     ValidationError,
 )
+
+from core.models import Livro
 from uploader.models import Image
 from uploader.serializers import ImageSerializer
+
 
 class LivroAlterarPrecoSerializer(Serializer):  # noqa: E302
     preco = DecimalField(max_digits=7, decimal_places=2)

@@ -61,14 +61,14 @@ class ItensCompraSerializer(ModelSerializer):  # noqa: E302
 
 
 class CompraSerializer(ModelSerializer):
-        usuario = CharField(source='usuario.email', read_only=True)  # noqa: E117
-        status = CharField(source='get_status_display', read_only=True)
-        data = DateTimeField(read_only=True) # novo campo  # noqa: E261
-        tipo_pagamento = CharField(source='get_tipo_pagamento_display', read_only=True) # novo campo  # noqa: E261
-        itens = ItensCompraSerializer(many=True, read_only=True)
+    usuario = CharField(source='usuario.email', read_only=True)  # noqa: E117
+    status = CharField(source='get_status_display', read_only=True)
+    data = DateTimeField(read_only=True) # novo campo  # noqa: E261
+    tipo_pagamento = CharField(source='get_tipo_pagamento_display', read_only=True) # novo campo  # noqa: E261
+    itens = ItensCompraSerializer(many=True, read_only=True)
 
-class Meta:  # noqa: E302
-        model = ItensCompra  # noqa: E117
+    class Meta:
+        model = Compra  # noqa: E117
         fields = ('id', 'usuario', 'status', 'total', 'data', 'tipo_pagamento', 'itens') # modificado  # noqa: E261
 
 class ItensCompraListSerializer(ModelSerializer):  # noqa: E302

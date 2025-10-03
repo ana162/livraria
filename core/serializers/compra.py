@@ -59,6 +59,11 @@ class ItensCompraSerializer(ModelSerializer):  # noqa: E302
     def get_total(self, instance):
         return instance.quantidade * instance.preco
 
+    class Meta:
+        model = ItensCompra
+        fields = ('quantidade', 'preco', 'total', 'livro')
+        depth = 2
+
 
 class CompraSerializer(ModelSerializer):
     usuario = CharField(source='usuario.email', read_only=True)  # noqa: E117

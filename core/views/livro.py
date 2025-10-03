@@ -26,7 +26,8 @@ class LivroViewSet(ModelViewSet):
     @extend_schema(
         request=LivroAlterarPrecoSerializer,
         responses={200: None},
-        description="Altera o preço do livro especificado."
+        description="Altera o preço do livro especificado.",
+        summary="Alterar preço do livro",
     )
     @action(detail=True, methods=['patch'])
     def alterar_preco(self, request, pk=None):

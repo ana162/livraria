@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.utils import timezone
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema  # noqa: F401
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -25,14 +25,15 @@ class CompraViewSet(ModelViewSet):
         quantidade_vendas = compras.count()
 
         return Response(
-            {
-                "status": "Relatório de vendas deste mês",
-                "total_vendas": total_vendas,
-                "quantidade_vendas": quantidade_vendas,
-            },
-            status=status.HTTP_200_OK,
+                {
+                        "status": "Relatório de vendas deste mês",
+                        "total_vendas": total_vendas,
+                        "quantidade_vendas": quantidade_vendas,
+                        "valor_medio_venda": total_vendas / quantidade_vendas if quantidade_vendas > 0 else 0,
+                        "data_inicio": inicio_mes,
+                },
+                status=status.HTTP_200_OK,
         )
-
     queryset = Compra.objects.all()
     serializer_class = CompraSerializer
 

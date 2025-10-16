@@ -1,5 +1,6 @@
 from rest_framework.serializers import (
     DecimalField,
+    IntegerField,
     ModelSerializer,
     Serializer,
     SlugRelatedField,
@@ -47,6 +48,14 @@ class LivroListSerializer(ModelSerializer):  # noqa: E302
     class Meta:
         model = Livro
         fields = ("id", "titulo", "preco")
+
+
+class LivroMaisVendidoSerializer(ModelSerializer):
+    total_vendidos = IntegerField()  # noqa: F821
+
+    class Meta:
+        model = Livro
+        fields = ['id', 'titulo', 'total_vendidos']
 
 class LivroRetrieveSerializer(ModelSerializer):  # noqa: E302
     capa = ImageSerializer(required=False)

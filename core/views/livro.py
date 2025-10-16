@@ -1,3 +1,5 @@
+from core.serializers.livro import LivroMaisVendidoSerializer  # noqa: I001
+from django.db.models.query_utils import Q
 from django_filters.rest_framework import DjangoFilterBackend  # noqa: I001
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -7,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import SearchFilter, OrderingFilter  # noqa: F811
 
-from core.models import Livro
+from core.models import Compra, Livro
 from core.serializers import (
     LivroAlterarPrecoSerializer,
     LivroListSerializer,
@@ -51,3 +53,27 @@ class LivroViewSet(ModelViewSet):
         return Response(
             {'detail': f'Preço do livro "{livro.titulo}" atualizado para {livro.preco}.'}, status=status.HTTP_200_OK
         )
+
+    @extend_schema(
+        summary="Lista os livros mais vendidos",
+        description="Retorna os livros que venderam mais de 10 unidades.",
+        responses={
+            200: LivroMaisVendidoSerializer(many=True)  # noqa: F821
+        },
+    )
+    @action(detail=False, methods=['get'])
+    def mais_vendidos(self, request):
+        livros = Livro.objects.annotate(
+            total_vendidos=sum(  # noqa: F821
+                'itens_compra__quantidade',
+                filter=Q(itens_compra__compra__status=Compra.StatusCompra.FINALIZADO)  # noqa: F821
+            )
+        ).filter(total_vendidos__gt=100).order_by('-total_vendidos')
+
+        serializer = LivroMaisVendidoSerializer(livros, many=True)
+
+        if not serializer.data:
+            return Response(
+                {"detail": "Nenhum livro excedeu 10 vendas."},
+                status=status.HTTP_200_OK
+            )

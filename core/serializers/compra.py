@@ -1,6 +1,6 @@
 from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField  # noqa: I001
 
-from core.models import Compra, ItensCompra
+from core.models import Compra, ItensCompra, compra
 
 from rest_framework.serializers import (
     CharField,  # noqa: F811
@@ -48,7 +48,9 @@ class CompraCreateUpdateSerializer(ModelSerializer):
 
         return super().update(compra, validated_data)
 
-    def create(self, validated_data):  # noqa: E302
+    def create(self, validated_data):
+        compra.save()  # linha adicionada para salvar a compra  # noqa: F823
+        return compra  # noqa: E302
         itens = validated_data.pop('itens')  # noqa: E117
         usuario = validated_data['usuario']  # noqa: F841
 

@@ -14,5 +14,6 @@ from .livro import (
     LivroListSerializer,
     LivroRetrieveSerializer,
     LivroSerializer,
+     LivroAjustarEstoqueSerializer,
 )
 from .user import UserSerializer

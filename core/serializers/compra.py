@@ -11,7 +11,7 @@ from rest_framework.serializers import (
     SerializerMethodField,  # noqa: F811
     ValidationError, # novo  # noqa: E261, F401
 )
-from tomlkit import item
+from tomlkit import item  # noqa: F401
 
 
 class ItensCompraCreateUpdateSerializer(ModelSerializer):
@@ -24,7 +24,7 @@ class ItensCompraCreateUpdateSerializer(ModelSerializer):
             raise ValidationError('A quantidade deve ser maior do que zero.')
         return quantidade
 
-    def validate(self, item):
+    def validate(self, item):  # noqa: F811
         if item['quantidade'] > item['livro'].quantidade:
             raise ValidationError('Quantidade de itens maior do que a quantidade em estoque.')
         return item
@@ -42,7 +42,7 @@ class CompraCreateUpdateSerializer(ModelSerializer):
         itens = validated_data.pop('itens',[])  # noqa: E117, E231
         if itens:
             compra.itens.all().delete()
-            for item_data in itens:  # noqa: E117
+            for item in itens:  # noqa: E117
                 item['preco'] = item['livro'].preco
                 ItensCompra.objects.create(compra=compra, **item)  # noqa: F821
 
@@ -51,6 +51,7 @@ class CompraCreateUpdateSerializer(ModelSerializer):
     def create(self, validated_data):
         compra.save()  # linha adicionada para salvar a compra  # noqa: F823
         return compra  # noqa: E302
+
         itens = validated_data.pop('itens')  # noqa: E117
         usuario = validated_data['usuario']  # noqa: F841
 
@@ -127,4 +128,4 @@ class ItensCompraListSerializer(ModelSerializer):
         # for item in self.itens.all():
         #     total += item.livro.preco * item.quantidade
         # return total
-        return sum(item.livro.preco * item.quantidade for item in self.itens.all())
+        return sum(item.livro.preco * item.quantidade for item in self.itens.all())  # noqa: F811

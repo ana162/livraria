@@ -30,7 +30,8 @@ class Compra(models.Model):
         return f'({self.id}) {self.usuario} {self.status}'
 
     def save(self, *args, **kwargs):
-        self.total = sum(item.preco * item.quantidade for item in self.itens.all())
+        if self.pk:
+            self.total = sum(item.preco * item.quantidade for item in self.itens.all())
         super().save(*args, **kwargs)
 
 class ItensCompra(models.Model):  # noqa: E302

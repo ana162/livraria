@@ -1,6 +1,6 @@
 from core.serializers.livro import LivroMaisVendidoSerializer  # noqa: I001
 from django.db.models.query_utils import Q
-from django.db.migrations import serializer
+from django.db.migrations import serializer  # noqa: F401
 from django_filters.rest_framework import DjangoFilterBackend  # noqa: I001
 from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status

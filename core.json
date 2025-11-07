@@ -1,3 +1,272 @@
-MODE = 'DEVELOPMENT' 
-MEDIA_URL = 'http://191.52.55.106:19003/media/' 
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'USER': '', 'PASSWORD': '', 'HOST': '', 'PORT': '', 'NAME': 'db.sqlite3', 'CONN_MAX_AGE': 600, 'CONN_HEALTH_CHECKS': True, 'DISABLE_SERVER_SIDE_CURSORS': False}}
+[
+{
+  "model": "core.autor",
+  "pk": 1,
+  "fields": {
+    "nome": "Machado de Asis",
+    "email": "machado@gmail.com"
+  }
+},
+{
+  "model": "core.autor",
+  "pk": 2,
+  "fields": {
+    "nome": "Ada Lovelace",
+    "email": "ada@hotmail.com"
+  }
+},
+{
+  "model": "core.autor",
+  "pk": 3,
+  "fields": {
+    "nome": "Alan Turing",
+    "email": "alan@gmail.com"
+  }
+},
+{
+  "model": "core.autor",
+  "pk": 4,
+  "fields": {
+    "nome": "Linus Torvalds",
+    "email": "linus@gmail.com"
+  }
+},
+{
+  "model": "core.categoria",
+  "pk": 1,
+  "fields": {
+    "descricao": "DRAMA"
+  }
+},
+{
+  "model": "core.categoria",
+  "pk": 2,
+  "fields": {
+    "descricao": "FANTASIA"
+  }
+},
+{
+  "model": "core.categoria",
+  "pk": 3,
+  "fields": {
+    "descricao": "DOCUMENTARIO"
+  }
+},
+{
+  "model": "core.categoria",
+  "pk": 4,
+  "fields": {
+    "descricao": "Desenvolvimento web 3"
+  }
+},
+{
+  "model": "core.categoria",
+  "pk": 5,
+  "fields": {
+    "descricao": "Estrutura de dados"
+  }
+},
+{
+  "model": "core.categoria",
+  "pk": 6,
+  "fields": {
+    "descricao": "Literatura"
+  }
+},
+{
+  "model": "core.categoria",
+  "pk": 7,
+  "fields": {
+    "descricao": "Dispositivos moveis"
+  }
+},
+{
+  "model": "core.categoria",
+  "pk": 8,
+  "fields": {
+    "descricao": "Banco de dados"
+  }
+},
+{
+  "model": "core.editora",
+  "pk": 1,
+  "fields": {
+    "nome": "novatec",
+    "site": "http://novatec.com",
+    "email": null,
+    "cidade": null
+  }
+},
+{
+  "model": "core.editora",
+  "pk": 2,
+  "fields": {
+    "nome": "7 Letras",
+    "site": "http://7Letras.com.br",
+    "email": null,
+    "cidade": null
+  }
+},
+{
+  "model": "core.editora",
+  "pk": 3,
+  "fields": {
+    "nome": "Jakobsson Estudio",
+    "site": "http://jakobssonestudio.com.br",
+    "email": null,
+    "cidade": null
+  }
+},
+{
+  "model": "core.livro",
+  "pk": 1,
+  "fields": {
+    "titulo": "Desenvolvendo Websites com PHP",
+    "isbn": "565757",
+    "quantidade": 1,
+    "preco": "20.00",
+    "categoria": 7,
+    "editora": 1,
+    "capa": 1,
+    "autores": [
+      2
+    ]
+  }
+},
+{
+  "model": "core.livro",
+  "pk": 3,
+  "fields": {
+    "titulo": "Java",
+    "isbn": null,
+    "quantidade": 5,
+    "preco": "100.00",
+    "categoria": 4,
+    "editora": 1,
+    "capa": null,
+    "autores": [
+      2
+    ]
+  }
+},
+{
+  "model": "core.livro",
+  "pk": 4,
+  "fields": {
+    "titulo": "html",
+    "isbn": null,
+    "quantidade": 3,
+    "preco": "60.00",
+    "categoria": 4,
+    "editora": 1,
+    "capa": null,
+    "autores": [
+      2
+    ]
+  }
+},
+{
+  "model": "core.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$a7ekdSwyFcTJu9oZiHDhKC$iIa4OwtiqaUYMi8UnLRjiaRJoD1htk/K8DZobAFg1eI=",
+    "last_login": "2025-11-07T11:15:22.629Z",
+    "is_superuser": true,
+    "passage_id": "324321544235435",
+    "email": "a@a.com",
+    "name": "Superusuário",
+    "is_active": true,
+    "is_staff": true,
+    "foto": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 2,
+  "fields": {
+    "password": "!guOeigiAEXjwTck0ZQ9oI58VjCo7jdEJhTzzyREJ",
+    "last_login": null,
+    "is_superuser": false,
+    "passage_id": "hdxkeqXbF8bp1Ql3dNJ0PoTB",
+    "email": "marcoandre@gmail.com",
+    "name": null,
+    "is_active": true,
+    "is_staff": false,
+    "foto": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$wsY3XYgMevrsTKwxXRoZQs$2R8N+SPrtyZ5rFztle8FrhGYUsNQJYD+O/1UaELqEq4=",
+    "last_login": null,
+    "is_superuser": false,
+    "passage_id": "",
+    "email": "admin1@a.com",
+    "name": "administradores",
+    "is_active": true,
+    "is_staff": false,
+    "foto": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.compra",
+  "pk": 1,
+  "fields": {
+    "usuario": 1,
+    "status": 1,
+    "tipo_pagamento": 1,
+    "data": "2025-10-24T11:25:16.100Z",
+    "total": "60.00"
+  }
+},
+{
+  "model": "core.compra",
+  "pk": 2,
+  "fields": {
+    "usuario": 1,
+    "status": 1,
+    "tipo_pagamento": 1,
+    "data": "2025-10-24T11:28:05.277Z",
+    "total": "20.00"
+  }
+},
+{
+  "model": "core.itenscompra",
+  "pk": 1,
+  "fields": {
+    "compra": 1,
+    "livro": 4,
+    "quantidade": 1,
+    "preco": "60.00"
+  }
+},
+{
+  "model": "core.itenscompra",
+  "pk": 2,
+  "fields": {
+    "compra": 2,
+    "livro": 1,
+    "quantidade": 3,
+    "preco": "20.00"
+  }
+},
+{
+  "model": "uploader.image",
+  "pk": 1,
+  "fields": {
+    "attachment_key": "b49e20ef-41b3-4475-ad09-85261deaf5a5",
+    "public_id": "133fd0dd-d9ba-4484-86f7-67c55d344ecc",
+    "file": "images/133fd0dd-d9ba-4484-86f7-67c55d344ecc.png",
+    "description": "core",
+    "uploaded_on": "2025-06-06T11:52:02.722Z"
+  }
+}
+]

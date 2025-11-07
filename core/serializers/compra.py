@@ -11,7 +11,6 @@ from rest_framework.serializers import (
     SerializerMethodField,  # noqa: F811
     ValidationError, # novo  # noqa: E261, F401
 )
-from tomlkit import item  # noqa: F401
 
 
 class ItensCompraCreateUpdateSerializer(ModelSerializer):

@@ -102,29 +102,13 @@ class ItensCompraListSerializer(ModelSerializer):  # noqa: E302
 
     class Meta:
         model = ItensCompra
-        fields = ('quantidade', 'preco', 'livro')  # mudou
+        fields = ('quantidade', 'preco', 'total')  # mudou
         depth = 1
-  # noqa: E114, W293
+
+
 class CompraListSerializer(ModelSerializer):  # noqa: E302
     usuario = CharField(source='usuario.email', read_only=True)  # noqa: F821
     itens = ItensCompraListSerializer(many=True, read_only=True)
     class Meta:
         model = Compra
         fields = ('id', 'usuario', 'itens')
-
-
-class ItensCompraListSerializer(ModelSerializer):
-    livro = CharField(source='livro.titulo', read_only=True)
-
-    class Meta:
-        model = ItensCompra
-        fields = ('quantidade', 'preco', 'livro')  # mudou
-        depth = 1
-
-    @property
-    def total(self):
-        # total = 0
-        # for item in self.itens.all():
-        #     total += item.livro.preco * item.quantidade
-        # return total
-        return sum(item.livro.preco * item.quantidade for item in self.itens.all())  # noqa: F811
